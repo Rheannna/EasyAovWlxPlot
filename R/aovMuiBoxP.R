@@ -19,6 +19,12 @@
 # p = PlotresultBox[[1]]
 # p
 
+# data = env
+# i= 3
+# sig_show ="abc"
+# result = result[[1]]
+
+
 
 ###----使用方差检验结果和多重比较结果做展示：  箱线图展示
 aovMuiBoxP = function(data = data_wt, i= 3,sig_show ="line",result = result){
@@ -40,10 +46,11 @@ aovMuiBoxP = function(data = data_wt, i= 3,sig_show ="line",result = result){
       legend.position = "none"#是否删除图例
 
     )
-
+  data_wt = data
   aa = result
   print(i)
   name_i = colnames(data_wt[i])
+  name_i
   data_box = data_wt[c(1,2,i)]
   colnames(data_box) = c("ID" , "group","dd" )
   library(tidyverse)

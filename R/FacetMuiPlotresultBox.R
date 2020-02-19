@@ -41,6 +41,22 @@
 ##------------现在我们需要多组分面出图---分为两种，--第一种箱线图--
 # num = c(4:6)
 # N =4
+
+
+
+# data = env
+# num = c(4:6)
+# result = result
+# sig_show ="abc"
+# ncol = 2
+
+
+
+
+
+
+
+
 FacetMuiPlotresultBox = function(data = data_wt,num = c(4:6),result = result,sig_show ="abc",ncol = 3 ){
   Mytheme <- theme_bw()+
 
@@ -61,29 +77,29 @@ FacetMuiPlotresultBox = function(data = data_wt,num = c(4:6),result = result,sig
 
     )
 
-  data_wt = data
-  N = num[1]
-  name = colnames(data_wt[N])
-  as = result[match( name,colnames(result))]
+  data_wt1 = data
+  # N = num[1]
+  # name = colnames(data_wt1[N])
+  # as = result[match( name,colnames(result))]
+  #
+  # colnames(as) = "groups"
+  # as$group = row.names(as)
+  #
+  # PlotresultBox = aovMuiBoxP(data = data_wt1, i= N,sig_show =sig_show,result = as)
+  #
+  # p = PlotresultBox[[2]]
+  # p
+  #
+  #
+  # # if (dim(as)[1]>3){p = p + theme(axis.text.x=element_text(angle=45,vjust=1, hjust=1))}
+  #
+  # name = colnames(data_wt1[N])
+  # p$name = name
+  # A = p
+# N= 4
+  for (N in num) {
 
-  colnames(as) = "groups"
-  as$group = row.names(as)
-
-  PlotresultBox = aovMuiBoxP(data = data_wt, i= N,sig_show =sig_show,result = as)
-
-  p = PlotresultBox[[2]]
-  p
-
-
-  # if (dim(as)[1]>3){p = p + theme(axis.text.x=element_text(angle=45,vjust=1, hjust=1))}
-
-  name = colnames(data_wt[N])
-  p$name = name
-  A = p
-
-  for (N in num[-1]) {
-
-    name = colnames(data_wt[N])
+    name = colnames(data_wt1[N])
 
     as = result[match( name,colnames(result))]
     # as = result[c(N - length(num))]
@@ -91,18 +107,22 @@ FacetMuiPlotresultBox = function(data = data_wt,num = c(4:6),result = result,sig
     colnames(as) = "groups"
     as$group = row.names(as)
 
-    PlotresultBox = aovMuiBoxP(data = data_wt, i= N,sig_show =sig_show,result =as)
+    PlotresultBox = aovMuiBoxP(data = data_wt1, i= N,sig_show =sig_show,result =as)
 
     p = PlotresultBox[[2]]
     p
-    name = colnames(data_wt[N])
+    name = colnames(data_wt1[N])
     p$name = name
+
+    if (N == num[1]) {
+      A = p
+    }
 
     A = rbind(A,p)
   }
   head(A)
 
-
+# 出图部分没有问题，但是数据有问题
   p<-ggplot(A, aes(x=group , y=dd ))+ geom_boxplot(alpha=1, aes(fill=group)) +
     geom_jitter( position=position_jitter(0.17), size=0.1, alpha=0.5)+
     labs(x="", y="")+
